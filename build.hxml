@@ -1,0 +1,8 @@
+-lib mcli
+-lib thx.core
+-cp src
+-main Main
+-neko bin/generator.n
+-cmd nekotools boot bin/generator.n
+-cmd mv bin/generator build/
+-cmd ./build/generator --templates sample/tpl --destination sample/out sample/def/example.json
