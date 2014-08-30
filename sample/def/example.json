@@ -4,5 +4,5 @@
     { "name" : "Test2" },
     { "name" : "Test1" }
   ],
-  "output" : "pack/::name::.hx"
+  "output" : "pack/${name}.hx"
 }

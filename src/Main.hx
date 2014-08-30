@@ -7,6 +7,12 @@ class Main extends CommandLine {
     new mcli.Dispatch(Sys.args()).dispatch(new Main());
 
     /**
+        Verbose mode
+        @alias v
+    **/
+    public var verbose : Bool;
+
+    /**
         Template directory
         @alias t
     **/
@@ -80,6 +86,8 @@ class Main extends CommandLine {
           error(e.message)
         catch(e : Dynamic)
           error('ERROR ${Std.string(e)}');
+        if(verbose)
+          Sys.println('generated files for $path');
       });
     }
 

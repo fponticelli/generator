@@ -1,5 +1,7 @@
 -lib mcli
 -lib thx.core
+-lib thx.tpl
+-lib hscript
 -cp src
 -main Main
 -neko bin/generator.n

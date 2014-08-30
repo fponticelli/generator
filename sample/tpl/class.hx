@@ -1,3 +1,3 @@
-class ::name:: {
+class $name {
   public function new() {}
 }

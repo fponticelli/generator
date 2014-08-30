@@ -1,8 +1,11 @@
-import haxe.Template;
 import thx.core.Error;
+
+using thx.core.AnonymousMap;
+using thx.core.Arrays;
 
 import sys.FileSystem;
 import sys.io.File;
+import thx.tpl.Template;
 
 class Generator {
   public var templateDirectory : String;
@@ -36,9 +39,13 @@ class Generator {
                 catch(e : Dynamic)
                   throw new Error('Unable to parse the path template: $e');
 
-    definition.values.map(function(value) {
-      var transformed = try template.execute(value) catch(e : Dynamic) throw new Error('template error: $e'),
-          file   = try path.execute(value) catch(e : Dynamic) throw new Error('path error: $e'),
+    var values = definition.values;
+    values.mapi(function(value, i) {
+      // inject other definitions
+      value.values = values.slice(0, i).concat(values.slice(i+1, values.length));
+      var map = new AnonymousMap(value),
+          transformed = try template.execute(map) catch(e : Dynamic) throw new Error('template error: $e'),
+          file   = try path.execute(map) catch(e : Dynamic) throw new Error('path error: $e'),
           append = file.substr(0, 1) == '+',
           output = destinationDirectory + (append ? (file = file.substr(1)) : file);
       if(FileSystem.exists(output) && FileSystem.isDirectory(output))
