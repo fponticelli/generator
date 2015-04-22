@@ -75,14 +75,14 @@ class Main extends CommandLine {
 
         try
           generator.validate(json)
-        catch(e : thx.core.Error)
+        catch(e : thx.Error)
           error(e.message)
         catch(e : Dynamic)
           error('VALIDATION ERROR ${Std.string(e)}');
 
         try
           generator.generate(json)
-        catch(e : thx.core.Error)
+        catch(e : thx.Error)
           error(e.message)
         catch(e : Dynamic)
           error('ERROR ${Std.string(e)}');

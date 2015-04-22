@@ -1,7 +1,7 @@
-import thx.core.Error;
+import thx.Error;
 
-using thx.core.AnonymousMap;
-using thx.core.Arrays;
+using thx.AnonymousMap;
+using thx.Arrays;
 
 import sys.FileSystem;
 import sys.io.File;
