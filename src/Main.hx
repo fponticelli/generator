@@ -1,5 +1,6 @@
 import mcli.CommandLine;
 import sys.FileSystem;
+import thx.load.Loader;
 
 class Main extends CommandLine {
 
@@ -64,30 +65,25 @@ class Main extends CommandLine {
       var generator = new Generator(templates, destination);
 
       varArgs.map(function(path) {
-        if(!FileSystem.exists(path))
-          error('File doesn\'t exist: $path');
-        if(FileSystem.isDirectory(path))
-          error('Path is a directory and not a file: $path');
-        var json = try
-                     haxe.Json.parse(sys.io.File.getContent(path))
-                   catch(e : Dynamic)
-                     error('Unable to parse JSON from $path');
+        Loader.getObject(Loader.normalizePath(path))
+          .success(function(ob) {
+            try
+              generator.validate(ob)
+            catch(e : thx.Error)
+              error(e.message)
+            catch(e : Dynamic)
+              error('VALIDATION ERROR ${Std.string(e)}');
 
-        try
-          generator.validate(json)
-        catch(e : thx.Error)
-          error(e.message)
-        catch(e : Dynamic)
-          error('VALIDATION ERROR ${Std.string(e)}');
-
-        try
-          generator.generate(json)
-        catch(e : thx.Error)
-          error(e.message)
-        catch(e : Dynamic)
-          error('ERROR ${Std.string(e)}');
-        if(verbose)
-          Sys.println('generated files for $path');
+            try
+              generator.generate(ob)
+            catch(e : thx.Error)
+              error(e.message)
+            catch(e : Dynamic)
+              error('ERROR ${Std.string(e)}');
+            if(verbose)
+              Sys.println('generated files for $path');
+          })
+          .throwFailure();
       });
     }
 

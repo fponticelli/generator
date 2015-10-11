@@ -1,7 +1,11 @@
 -lib mcli
 -lib thx.core
 -lib thx.tpl
+-lib thx.http
+-lib thx.promise
+-lib thx.load
 -lib hscript
+-lib yaml
 -cp src
 -main Main
 -neko bin/generator.n
