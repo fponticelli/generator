@@ -1,5 +1,6 @@
--lib mcli
+-lib hxargs
 -lib thx.core
+-lib thx.csv
 -lib thx.tpl
 -lib thx.http
 -lib thx.promise
@@ -7,8 +8,9 @@
 -lib hscript
 -lib yaml
 -cp src
--main Main
+-main gen.Main
 -neko bin/generator.n
 -cmd nekotools boot bin/generator.n
 -cmd mv bin/generator build/
--cmd ./build/generator --templates sample/tpl --destination sample/out sample/def/example.json
+-cmd ./build/generator
+-cmd ./build/generator -i "sample/tpl/class.hx" -o "sample/out/pack/\${name}.hx" -d "sample/def/example.json" -p "values"
