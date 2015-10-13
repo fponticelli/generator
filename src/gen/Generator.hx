@@ -6,6 +6,7 @@ using thx.tpl.Template;
 using thx.Error;
 using thx.AnonymousMap;
 using thx.Objects;
+using thx.Maps;
 
 class Generator {
   public static function load(path : String, ?dataPath : String) : Promise<Array<Generator>> {
@@ -43,8 +44,16 @@ class Generator {
                       new Template(content)
                     catch(e : Dynamic)
                       throw new Error('Unable to parse the template: $e');
-    var map = new AnonymousMap(data);
+    var map = defaultMap(),
+        dataMap = Objects.toMap(data);
+    dataMap.copyTo(map);
     var generated = try template.execute(map) catch(e : Dynamic) throw new Error('template error: $e');
     return generated;
+  }
+
+  function defaultMap() : Map<String, Dynamic> {
+    return [
+      "Strings" => thx.Strings
+    ];
   }
 }
