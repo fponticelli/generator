@@ -53,7 +53,24 @@ class Generator {
 
   function defaultMap() : Map<String, Dynamic> {
     return [
-      "Strings" => thx.Strings
+      "Arrays" => thx.Arrays,
+      "Bools" => thx.Bools,
+      "Dates" => thx.Dates,
+      "Enums" => thx.Enums,
+      "ERegs" => thx.ERegs,
+      "Floats" => thx.Floats,
+      "Functions" => thx.Functions,
+      "Ints" => thx.Ints,
+      "Iterables" => thx.Iterables,
+      "Iterators" => thx.Iterators,
+      "Maps" => thx.Maps,
+      "Objects" => thx.Objects,
+      "Options" => thx.Options,
+      "Strings" => thx.Strings,
+      "Uuid" => thx.Uuid,
+
+      "Math" => Math,
+      "StringTools" => StringTools,
     ];
   }
 }
